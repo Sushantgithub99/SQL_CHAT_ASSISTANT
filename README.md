@@ -3,6 +3,9 @@
 ## Overview
 SQL Chat Assistant is a Streamlit-based web application that allows users to interact with a conversational AI to generate and debug SQL queries. The assistant is powered by the DeepSeek API via OpenRouter, enabling intelligent query generation and database-related discussions.
 
+## Website
+The application phase deployed at :- https://sqlchatassistant.streamlit.app/ 
+
 ## Features
 - **SQL Query Generation**: Generate SQL queries based on natural language input.
 - **Query Debugging**: Identify and fix errors in SQL queries.
