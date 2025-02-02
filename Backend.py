@@ -35,7 +35,7 @@ def model_setup(api_key, system_query, human_query):
 def execute_sql(sql_query):
     if not sql:
         return None, "No SQL generated."
-    conn = sql.connect('"sql_chat_assistant//Database"')
+    conn = sql.connect('sql_chat_assistant//Database')
     c = conn.cursor()
     try:
         c.execute(sql_query)

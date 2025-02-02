@@ -1,7 +1,7 @@
 import sqlite3
 
 # Database file
-DATABASE_FILE = "D://Saffer//Data Science//Machine Learning Projects//Chat assistant//Chat_Assistant_DeepseekAPI//Database//company.db"
+DATABASE_FILE = "SQL_CHAT_ASSISTANT//Database//company.db"
 
 def create_database():
     conn = sqlite3.connect(DATABASE_FILE)
