@@ -32,10 +32,10 @@ def model_setup(api_key, system_query, human_query):
 
 
 ## Retrieval of Data for the generated query
-def execute_sql(sql_query):
+def execute_sql(database,sql_query):
     if not sql:
         return None, "No SQL generated."
-    conn = sql.connect('sql_chat_assistant//Database')
+    conn = sql.connect(database)
     c = conn.cursor()
     try:
         c.execute(sql_query)
@@ -62,7 +62,7 @@ def llm_query_response(api_key,model,prompt):
     '''
 
     if model == 'deepseek/deepseek-r1:free':
-        res = model_setup(api_key, system_query,human_query)
+        res = model_setup(api_key, system_query, human_query)
         if res == "Error : Rate Limited Exceeded.":
             generated_query = res
             print(generated_query)
@@ -89,5 +89,3 @@ def llm_query_response(api_key,model,prompt):
     generated_query = truncated_response[start:end]
 
     return generated_query
-
-

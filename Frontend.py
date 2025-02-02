@@ -3,24 +3,17 @@ import Backend
 import pandas as pd
 import time
 
-
 # Page Configuration
 st.set_page_config(page_title="SQL Chat Assistant", layout="wide")
 
 
+## API KEY
+api_key = st.secrets["API_KEY"]
+database = st.secrets["DATABASE"]
+
 # Sidebar
 with st.sidebar:
     st.title("🛠️ SQL Chat Assistant")
-    if 'OPENAI_API_KEY' in st.secrets:
-        st.success('API key already provided!', icon='✅')
-        api_key = st.secrets['Open_Router_API_KEY']
-    else:
-        api_key = st.text_input('Enter OpenAI API token:', type='password')
-        if not (api_key.startswith('sk-') and len(api_key)==51):
-            st.warning('Please enter your credentials!', icon='⚠️')
-        else:
-            st.success('Proceed to entering your prompt message!', icon='👉')    
-
     st.write("💡 **Usage:** This assistant helps generate SQL queries based on user queries and retrieves results from the database.")
     st.write("🧠 **Model Used:**OpenRouterAPI - DeepSeek-r1 free")
     st.write("🗂️ **Database:** company.db")
@@ -67,11 +60,11 @@ else :
 
         if sql_query:
             # Execute SQL
-            columns, results = Backend.execute_sql(sql_query)
+            columns, results = Backend.execute_sql(database,sql_query)
             if isinstance(results, str):
                 # Error occurred
                 if results == 'near "Error": syntax error':
-                    response = "Error: Rate Limit Exceeded"
+                    response = "Error: Rate Limit Exceeded please wait for some time and try again."
                 else:
                     response = f"Error: {results}"
             else:
