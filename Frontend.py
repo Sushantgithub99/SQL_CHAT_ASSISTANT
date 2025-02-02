@@ -3,12 +3,24 @@ import Backend
 import pandas as pd
 import time
 
+
 # Page Configuration
 st.set_page_config(page_title="SQL Chat Assistant", layout="wide")
-api_key = "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"
+
+
 # Sidebar
 with st.sidebar:
     st.title("🛠️ SQL Chat Assistant")
+    if 'OPENAI_API_KEY' in st.secrets:
+        st.success('API key already provided!', icon='✅')
+        api_key = st.secrets['Open_Router_API_KEY']
+    else:
+        api_key = st.text_input('Enter OpenAI API token:', type='password')
+        if not (api_key.startswith('sk-') and len(api_key)==51):
+            st.warning('Please enter your credentials!', icon='⚠️')
+        else:
+            st.success('Proceed to entering your prompt message!', icon='👉')    
+
     st.write("💡 **Usage:** This assistant helps generate SQL queries based on user queries and retrieves results from the database.")
     st.write("🧠 **Model Used:**OpenRouterAPI - DeepSeek-r1 free")
     st.write("🗂️ **Database:** company.db")
@@ -50,7 +62,7 @@ else :
             st.markdown(prompt)
     
         # Generate SQL query
-        sql_query = Backend.llm_query_response(api_key,model, prompt)
+        sql_query = Backend.llm_query_response(api_key, model, prompt)
         response = ""
 
         if sql_query:
